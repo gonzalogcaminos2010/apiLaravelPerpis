@@ -78,15 +78,9 @@ class ProductoController extends Controller
     public function show($id)
     {
 
-        if (Producto::where('id', $id)->exists()) {
-            $producto = Producto::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($producto, 200);
-          } else {
-            return response()->json([
-              "message" => "Producto not found"
-            ], 404);
-          }
-      }
+        $producto = Producto::find($id);
+
+        return view('producto.show', compact('producto'));
     }
 
     /**
@@ -111,23 +105,12 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        if (Producto::where('id', $id)->exists()) {
-            $producto = Producto::find($id);
-            $producto->nombre = is_null($request->nombre) ? $producto->nombre : $request->nombre;
-            $producto->descripcion = is_null($request->descripcion) ? $producto->descripcion : $request->nombre;
-            $producto->precio = is_null($request->precio) ? $producto->precio : $request->precio;
-            $producto->image = is_null($request->image) ? $producto->image : $request->image;
-            $producto->save();
+        request()->validate(Producto::$rules);
 
-            return response()->json([
-                "message" => "records updated successfully"
-            ], 200);
-            } else {
-            return response()->json([
-                "message" => "Producto not found"
-            ], 404);
+        $producto->update($request->all());
 
-        }
+        return redirect()->route('productos.index')
+            ->with('success', 'Producto updated successfully');
     }
 
     /**

@@ -31,15 +31,19 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //Store product with image url
-        $producto = $request->all();
-        if($imagen = $request->file('image')){
-            $rutaGuardaImg = 'imagen/';
-            $nombreImagen = $imagen->getClientOriginalName();
-            $imagen->move($rutaGuardaImg, $nombreImagen);
-            $producto['image'] = $rutaGuardaImg . $nombreImagen;
-        }
-        Producto::create($producto);
+
+            //Store product with image url
+            $producto = $request->all();
+            if($imagen = $request->file('image')){
+                $rutaGuardaImg = 'imagen/';
+                $nombreImagen = $imagen->getClientOriginalName();
+                $imagen->move($rutaGuardaImg, $nombreImagen);
+                $producto['image'] = $rutaGuardaImg . $nombreImagen;
+            }
+            Producto::create($producto);
+
+
+
 
 
     }
@@ -82,4 +86,4 @@ class ProductoController extends Controller
         $producto->delete();
 
     }
-}
+
