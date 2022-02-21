@@ -12,8 +12,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="images p-3">
-                            <div class="text-center p-4"><img src="{{ asset($producto->image) }}" width="250" alt="{{ $producto->nombre }}"></div>
-                            <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ asset($producto->image) }}" width="70"> <img onclick="change_image(this)" src="{{ asset($producto->image) }}" width="70"> </div>
+                            <div class="text-center p-4"><img src="{{ asset("imagen/".$producto->image) }}" width="250" alt="{{ $producto->nombre }}"></div>
+                            <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ asset("imagen/".$producto->image) }}" width="70"> <img onclick="change_image(this)" src="{{ asset("imagen/".$producto->image) }}" width="70"> </div>
                         </div>
                     </div>
                     <div class="col-md-6">

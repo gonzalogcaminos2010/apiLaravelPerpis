@@ -63,7 +63,7 @@ class ProductoController extends Controller
          $producto['image'] = "$imagenProducto";
         }
         Producto::create($producto);
-        //var_dump($producto['image']);
+        var_dump($producto['image']);
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto created successfully.');

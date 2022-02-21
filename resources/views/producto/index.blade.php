@@ -53,7 +53,7 @@
 											<td>{{ $producto->descripcion }}</td>
 											<td>{{ $producto->precio }}</td>
 
-											<td><img src="{{ asset($producto->image) }}" width="100" height="100" alt=""></td>
+											<td><img src="{{ asset("imagen/".$producto->image) }}" width="100" height="100" alt=""></td>
 
                                             <td>
                                                 <form action="{{ route('productos.destroy',$producto->id) }}" method="POST">
