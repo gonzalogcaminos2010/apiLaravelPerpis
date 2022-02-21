@@ -5,42 +5,36 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">Mostrar Producto</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('productos.index') }}"> Back</a>
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <div class="text-center p-4"><img src="{{ asset($producto->image) }}" width="250" alt="{{ $producto->nombre }}"></div>
+                            <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ asset($producto->image) }}" width="70"> <img onclick="change_image(this)" src="{{ asset($producto->image) }}" width="70"> </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="product p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1"> <a href="{{ route('productos.index') }}"> Volver</a></span> </div> <i class="fa fa-shopping-cart text-muted"></i>
+                            </div>
+                            <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Orianz</span>
+                                <h5 class="text-uppercase">{{ $producto->nombre }}</h5>
+                                <div class="price d-flex flex-row align-items-center"> <span class="act-price">{{ $producto->precio }}</span>
 
-                    <div class="card-body">
+                                </div>
+                            </div>
+                            <p class="about">{{ $producto->descripcion }}</p>
 
-                        <div class="form-group">
-                            <strong>Nombre:</strong>
-                            {{ $producto->nombre }}
+                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Agregar al carro</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
                         </div>
-                        <div class="form-group">
-                            <strong>Descripcion:</strong>
-                            {{ $producto->descripcion }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Precio:</strong>
-                            {{ $producto->precio }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Image:</strong>
-
-                            <img src="{{ asset('public/'.$producto->image) }}" alt="{{ $producto->nombre }}" width="100" height="100">
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection

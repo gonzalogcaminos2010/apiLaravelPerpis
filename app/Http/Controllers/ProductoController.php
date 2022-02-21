@@ -43,21 +43,27 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        /*dd($request->all);*/
+        request()->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $data = request->validate(
-            [
-                'nombre' => 'required',
-                'descripcion' => 'required',
-                'precio' => 'required',
-                'image' => 'required',
-            ]
-        );
+        //save image path
 
 
 
 
-        $producto = Producto::create($request->all());
+        $producto = $request->all();
+        if($imagen = $request->file('image')){
+         $rutaGuardaImg = 'imagen/';
+         $imagenProducto = date('YmdHis') . $imagen->getClientOriginalName();
+         $imagen->move($rutaGuardaImg, $imagenProducto);
+         $producto['image'] = "$imagenProducto";
+        }
+        Producto::create($producto);
+        //var_dump($producto['image']);
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto created successfully.');
@@ -71,9 +77,16 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $producto = Producto::find($id);
 
-        return view('producto.show', compact('producto'));
+        if (Producto::where('id', $id)->exists()) {
+            $producto = Producto::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+            return response($producto, 200);
+          } else {
+            return response()->json([
+              "message" => "Producto not found"
+            ], 404);
+          }
+      }
     }
 
     /**
@@ -98,12 +111,23 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        request()->validate(Producto::$rules);
+        if (Producto::where('id', $id)->exists()) {
+            $producto = Producto::find($id);
+            $producto->nombre = is_null($request->nombre) ? $producto->nombre : $request->nombre;
+            $producto->descripcion = is_null($request->descripcion) ? $producto->descripcion : $request->nombre;
+            $producto->precio = is_null($request->precio) ? $producto->precio : $request->precio;
+            $producto->image = is_null($request->image) ? $producto->image : $request->image;
+            $producto->save();
 
-        $producto->update($request->all());
+            return response()->json([
+                "message" => "records updated successfully"
+            ], 200);
+            } else {
+            return response()->json([
+                "message" => "Producto not found"
+            ], 404);
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto updated successfully');
+        }
     }
 
     /**

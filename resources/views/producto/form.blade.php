@@ -1,29 +1,42 @@
-<div class="box box-info padding-1">
-    <div class="box-body">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data">
 
-        <div class="form-group">
-            {{ Form::label('nombre') }}
-            {{ Form::text('nombre', $producto->nombre, ['class' => 'form-control' . ($errors->has('nombre') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) }}
-            {!! $errors->first('nombre', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
-            {{ Form::label('descripcion') }}
-            {{ Form::text('descripcion', $producto->descripcion, ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'placeholder' => 'Descripcion']) }}
-            {!! $errors->first('descripcion', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
-            {{ Form::label('precio') }}
-            {{ Form::text('precio', $producto->precio, ['class' => 'form-control' . ($errors->has('precio') ? ' is-invalid' : ''), 'placeholder' => 'Precio']) }}
-            {!! $errors->first('precio', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
-            {{ Form::label('image') }}
-            {{ Form::file('image', $producto->image, ['class' => 'form-control' . ($errors->has('image') ? ' is-invalid' : ''), 'placeholder' => 'Image']) }}
-            {!! $errors->first('image', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
 
-    </div>
-    <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">Guardar</button>
+
+                <div class="form-group">
+                    <label for="nombre">Producto</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del producto">
+
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripcion</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción del producto">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio del producto">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Imagen</label>
+                    <input id="imagen" type="file" class="form-control" id="image" name="image" placeholder="Imagen del producto">
+
+                </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Guardar Producto">
+            </div>
+
+
+            </form>
+
+
+        </div>
     </div>
 </div>
+

@@ -18,7 +18,7 @@
 
                              <div class="float-right">
                                 <a href="{{ route('productos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Agregar Producto') }}
                                 </a>
                               </div>
                         </div>
@@ -39,7 +39,7 @@
 										<th>Nombre</th>
 										<th>Descripcion</th>
 										<th>Precio</th>
-										<th>Image</th>
+										<th>Imagen</th>
 
                                         <th></th>
                                     </tr>
@@ -52,15 +52,16 @@
 											<td>{{ $producto->nombre }}</td>
 											<td>{{ $producto->descripcion }}</td>
 											<td>{{ $producto->precio }}</td>
-											<td>{{ $producto->image }}</td>
+                                            //show image rendered
+											<td><img src="{{ asset($producto->image) }}" width="100" height="100" alt=""></td>
 
                                             <td>
                                                 <form action="{{ route('productos.destroy',$producto->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('productos.show',$producto->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('productos.edit',$producto->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('productos.show',$producto->id) }}"><i class="fa fa-fw fa-eye"></i>Mostrar</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('productos.edit',$producto->id) }}"><i class="fa fa-fw fa-edit"></i>Editar</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Borrar Producto</button>
                                                 </form>
                                             </td>
                                         </tr>

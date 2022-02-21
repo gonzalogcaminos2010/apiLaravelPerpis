@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Http\Resources\V1\ProductosResource;
 
 class ProductoController extends Controller
 {
@@ -16,7 +17,9 @@ class ProductoController extends Controller
     public function index()
     {
         //Show all products
-        return $productos = Producto::all();
+        $imagen = Producto::all();
+
+        return ProductosResource::collection(Producto::latest()->paginate());
 
     }
 
@@ -28,8 +31,16 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //Store product
-        $producto = Producto::create($request->all());
+        //Store product with image url
+        $producto = $request->all();
+        if($imagen = $request->file('image')){
+            $rutaGuardaImg = 'imagen/';
+            $nombreImagen = $imagen->getClientOriginalName();
+            $imagen->move($rutaGuardaImg, $nombreImagen);
+            $producto['image'] = $rutaGuardaImg . $nombreImagen;
+        }
+        Producto::create($producto);
+
 
     }
 
@@ -42,7 +53,7 @@ class ProductoController extends Controller
     public function show(Producto $producto)
     {
         //Show one product
-        return $producto;
+        return new ProductosResource($producto);
 
     }
 
